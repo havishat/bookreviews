@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Add Book and Review</title>
+        {%load static%}
+        <link rel="stylesheet" href="{% static 'exampython_app/style.css' %}" media="screen" title="no title"  charset="utf-8">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+
+        <h1>{{book.title}}</h1><a href="/books">Home</a> &nbsp; <a href="/logout">Logout</a>
+        <p>Author: {{book.author}}</p>
+        <h2>Reviews: </h2> 
+        {%for x in review.all%}
+        <p>Rating: {{x.rating}}</p>
+        {{x.reviewer.id}}
+        <p><a href="/users/{{x.reviewer.id}}"> {{x.reviewer.name}} </a> says: {{x.review}}</p>
+        <p>{{created_at}}</p>
+        {%endfor%}
+        <a href="/delete">Delete this Review </a>
+        <!--{{book.id}}-->
+        <form action='/books/{{book.id}}/create' method='post'>
+        {% csrf_token %}
+            <h2>Add a Review</h2>
+            <textarea name = "review"></textarea>
+            <p>Rating:<select name="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select> stars</p>
+            <button type="submit">Submit Review</button>
+        </form>
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </body>
+</html>

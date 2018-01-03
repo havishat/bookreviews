@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Books Home</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	{%load static%}
+	<!--<link rel="stylesheet" href="{% static 'users/style.css' %}" media="screen" title="no title"  charset="utf-8">-->
+	<style>
+		p{
+		color: green;
+		}
+	</style>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+</head>
+<body>
+	<h2>Welcome, {{user.alias}}!</h2> <a href="/books/add">Add Book and Reviews</a> &nbsp; <a href="/logout">Logout</a>
+    <h3> Recent Book Reviews:</h3>
+    {%for x in recent%}
+        <a href="/books/{{x.book.id}}"><p> {{x.book.title}} </p></a>
+        <p> {{x.rating}}</p> <p> <a href="/users/{{x.id}}"> {{x.reviewer.name}} </a> says: {{x.review}} </p>
+		<p> {{x.created_at}}</p>
+		<br>
+    {%endfor%}
+	<br>
+    <div class="side">
+		<h2>Other Books with Reviews:</h2>
+		{% for review in more %}
+		<div class="review">
+			<h2><a href="/books/{{review.book.id}}">{{ review.book.title }}</a></h2>
+		</div>
+		{% endfor %}
+    </div>
+	{% if messages %}
+	<div class="messages">
+		{% for message in messages %}
+		    <p>{{ message }}</p>
+		{% endfor %}
+	</div>
+	{% endif %}
+</body>
+</html>

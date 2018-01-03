@@ -1,0 +1,45 @@
+<html>
+    <head>
+       <title>Add Book and Review</title>
+       <style>
+           button{
+               background-color: blue;
+               color: white;
+           }
+        </style>
+    </head>
+    <body>
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <h1>Add a New Book Title and a Review</h1> <a href="/books">Home</a> &nbsp; <a href="/logout">Logout</a>
+    <p> Recent Book Reviews:</p>
+        <form action='/addbr' method='post'>
+         {% csrf_token %}
+            Book Title:<textarea type="text" name="title"></textarea>
+            <p>Author</p>
+            <p>Choose from the list: <select name="author_name">
+                <option value="Rowling">Rowling</option>
+                <option value="Mark Twain">Mark Twain</option>
+                <option value="william shakespeare">william shakespeare</option>
+                <option value="Stephen King">Stephen King</option>
+                <option value="long King">long King</option>
+                <option><input type='text'></option>
+            </select></p>
+            <!--<p>or add a new author: <input type='text' name='author_name'></p>-->
+            <p>Review: <textarea  type='text' name='review'></textarea></p>
+             <p>Rating<select name="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select> stars </p>
+            <button type="submit" name='Button'>Add Book and Review</button>
+        </form>
+    </body>
+</html>
+            
